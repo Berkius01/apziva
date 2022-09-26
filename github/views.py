@@ -1,16 +1,19 @@
 from ast import keyword
-from distutils.log import info
-import string
+#from distutils.log import info
+#1import string
 from time import sleep
 from django.shortcuts import render
 from .models import Github
-from lib2to3.pgen2 import driver
+#from lib2to3.pgen2 import driver
 from django.views.decorators.csrf import csrf_exempt
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+
+#trying bypassing stackoverflow recapctha
+#from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
 # Create your views here.
 
@@ -31,12 +34,16 @@ def stack(request):
 def stackSearch(request):
     try:
         op = Options()
+        #ua = UserAgent()
+        #useragent = ua.random
             #op.headless=True
+        #op.add_argument(f'user-agent={useragent}')
         op.binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
         driver = webdriver.Chrome(ChromeDriverManager().install(),options=op)
         url = "https://stackoverflow.com/"
         topic = request.POST.get("topic")
         driver.get(url)
+        sleep(1)
         p=driver.find_element(By.NAME,"q")
         p.send_keys(topic)
         p.submit()
